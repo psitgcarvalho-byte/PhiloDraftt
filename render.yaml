@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: filosofia-psicologia-site
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: _site

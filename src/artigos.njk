@@ -1,0 +1,43 @@
+---
+layout: base.njk
+title: "Artigos"
+description: "Lista completa de publicações, com recortes por tema e tags."
+permalink: "/artigos/index.html"
+---
+
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-inner">
+        <div class="kicker"><i></i>Arquivo</div>
+        <h1 class="h1" style="margin-top:10px;">Artigos</h1>
+        <p class="lead">Use as tags como filtro conceitual. Cada texto tem uma descrição curta e data de publicação.</p>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="grid">
+      {% for post in collections.posts %}
+        <article class="post-card">
+          <div class="top">
+            <div class="badges">
+              {% for t in post.data.tags %}
+                {% if t != "posts" %}
+                  <span class="badge">{{ t }}</span>
+                {% endif %}
+              {% endfor %}
+              {% if post.data.featured %}<span class="badge gold">Destaque</span>{% endif %}
+            </div>
+            <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+            <p>{{ post.data.description }}</p>
+          </div>
+          <div class="bottom">
+            <span><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time> {% if post.data.readingTime %}· {{ post.data.readingTime }}{% endif %}</span>
+            <a href="{{ post.url }}">Ler</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

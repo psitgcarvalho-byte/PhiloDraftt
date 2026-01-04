@@ -1,0 +1,82 @@
+---
+layout: base.njk
+title: "Início"
+description: "Ensaios e notas de estudo sobre filosofia, psicologia e neuropsicologia."
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="card">
+        <div class="card-inner">
+          <div class="kicker"><i></i>Publicação contínua</div>
+          <h1 class="h1">Um espaço elegante para pensar, organizar e publicar.</h1>
+          <p class="lead">
+            Filosofia, psicologia e neuropsicologia atravessadas pela questão da verdade, da linguagem, da decisão e da experiência.
+            Textos com ritmo limpo, recortes bem definidos e foco em clareza sem perder densidade.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="/artigos/">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 14v6a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Ver todos os artigos
+            </a>
+            <a class="btn" href="/sobre/">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12a5 5 0 100-10 5 5 0 000 10z" stroke="currentColor" stroke-width="2"/><path d="M20 21a8 8 0 10-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Sobre o projeto
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta-box">
+        <div class="meta-item">
+          <div class="label">Linha editorial</div>
+          <div class="value">Rigor + clareza + aplicação</div>
+          <div class="hint">Textos com estrutura interna nítida: problema, tese, movimento argumentativo e conclusão.</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Formas</div>
+          <div class="value">Ensaios, notas, resumos</div>
+          <div class="hint">Cada publicação pode ser curta e incisiva ou longa e analítica — sem perder coesão.</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Áreas</div>
+          <div class="value">Filosofia · Psicologia · Neuropsicologia</div>
+          <div class="hint">Ética, linguagem, valores, decisão, clínica, avaliação, cognição e cultura.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Destaques</h2>
+      <a href="/artigos/">Abrir arquivo completo →</a>
+    </div>
+
+    <div class="grid">
+      {% for post in collections.featured %}
+        <article class="post-card">
+          <div class="top">
+            <div class="badges">
+              {% for t in post.data.tags %}
+                {% if t != "posts" %}
+                  <span class="badge">{{ t }}</span>
+                {% endif %}
+              {% endfor %}
+              <span class="badge gold">Destaque</span>
+            </div>
+            <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+            <p>{{ post.data.description }}</p>
+          </div>
+          <div class="bottom">
+            <span><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time> {% if post.data.readingTime %}· {{ post.data.readingTime }}{% endif %}</span>
+            <a href="{{ post.url }}">Ler</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

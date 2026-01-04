@@ -1,0 +1,67 @@
+---
+layout: base.njk
+title: "Tags"
+description: "Navegação por recortes temáticos."
+permalink: "/tags/index.html"
+---
+
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-inner">
+        <div class="kicker"><i></i>Mapas</div>
+        <h1 class="h1" style="margin-top:10px;">Tags</h1>
+        <p class="lead">Use as tags como um índice conceitual. Cada uma aponta para artigos relacionados.</p>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    {% set allTags = collections.posts | map(attribute="data.tags") %}
+    {% set flat = [] %}
+    {% for arr in allTags %}
+      {% for t in arr %}
+        {% if t != "posts" %}
+          {% set flat = (flat.push(t), flat) %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+    {% set unique = flat | unique %}
+    <div class="card">
+      <div class="card-inner">
+        <div class="badges">
+          {% for t in unique %}
+            <a class="badge" href="#{{ t | slug }}">{{ t }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    {% for t in unique %}
+      <section id="{{ t | slug }}" class="card" style="margin-bottom:14px;">
+        <div class="card-inner">
+          <div class="kicker"><i></i>{{ t }}</div>
+          <div class="grid" style="margin-top:12px;">
+            {% for post in collections.posts %}
+              {% if t in post.data.tags %}
+                <article class="post-card" style="grid-column: span 12;">
+                  <div class="top">
+                    <h3 style="margin-top:0;"><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+                    <p>{{ post.data.description }}</p>
+                  </div>
+                  <div class="bottom">
+                    <span><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time> {% if post.data.readingTime %}· {{ post.data.readingTime }}{% endif %}</span>
+                    <a href="{{ post.url }}">Ler</a>
+                  </div>
+                </article>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+</section>

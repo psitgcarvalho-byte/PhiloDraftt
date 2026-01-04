@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>{{ title }} · {{ site.name }}</title>
+  <meta name="description" content="{{ description or site.description }}" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <meta property="og:title" content="{{ title }} · {{ site.name }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="header">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">
+            <strong>{{ site.name }}</strong>
+            <span>{{ site.tagline }}</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a class="pill{% if page.url == '/' %} active{% endif %}" href="/">Início</a>
+          <a class="pill{% if page.url == '/artigos/' %} active{% endif %}" href="/artigos/">Artigos</a>
+          <a class="pill{% if page.url == '/tags/' %} active{% endif %}" href="/tags/">Tags</a>
+          <a class="pill{% if page.url == '/sobre/' %} active{% endif %}" href="/sobre/">Sobre</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>{{ site.name }}</h3>
+          <p>{{ site.footerText }}</p>
+          <p class="small">© <span data-year></span> · Publicação contínua · Conteúdo em português do Brasil.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-inner compact">
+            <h3 style="margin:0 0 10px;">Assuntos e recortes</h3>
+            <p style="margin:0; color: var(--muted); line-height:1.6;">
+              Filosofia moral, linguagem e verdade; psicologia clínica e cultura; neuropsicologia aplicada, testes e tomada de decisão.
+            </p>
+            <div class="hr"></div>
+            <form action="https://example.com" method="post" onsubmit="event.preventDefault(); alert('Você pode trocar isso por um formulário real depois.');">
+              <label class="label" for="email" style="display:block; font-size:12px; color: var(--faint); letter-spacing:.12em; text-transform:uppercase;">Receber novidades</label>
+              <div class="form-row" style="margin-top:8px;">
+                <input class="input" id="email" name="email" type="email" placeholder="seuemail@exemplo.com" required>
+                <button class="btn primary" type="submit" aria-label="Cadastrar e-mail">Cadastrar</button>
+              </div>
+              <div class="notice">Sem spam. Você controla o conteúdo e pode trocar este formulário por um serviço de newsletter quando quiser.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/main.js" defer></script>
+</body>
+</html>
