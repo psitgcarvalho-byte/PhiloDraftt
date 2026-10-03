@@ -4,6 +4,7 @@ module.exports = function(eleventyConfig) {
   // Static assets
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
+  eleventyConfig.addPassthroughCopy({ "src/editor": "editor" });
 
   // Filters
   eleventyConfig.addFilter("readableDate", (dateObj) => {
@@ -26,6 +27,21 @@ module.exports = function(eleventyConfig) {
       .slice(0, 6);
   });
 
+  eleventyConfig.addCollection("tagList", function(collectionApi) {
+    const set = new Set();
+    collectionApi.getFilteredByGlob("src/posts/*.md").forEach(p => (p.data.tags || []).forEach(t => t !== "posts" && set.add(t)));
+    return [...set].sort();
+  });
+
+  // Prefixo de caminho (GitHub Pages em subcaminho). Vazio com domínio próprio.
+  const prefix = (process.env.PATH_PREFIX || "").replace(/\/$/, "");
+  if (prefix) {
+    eleventyConfig.addTransform("prefix", function(content) {
+      if (!(this.page.outputPath || "").endsWith(".html")) return content;
+      return content.replace(/(href|src|action)="\/(?!\/)/g, `$1="${prefix}/`);
+    });
+  }
+
   // Watch targets
   eleventyConfig.addWatchTarget("src/assets");
 
@@ -37,6 +53,7 @@ module.exports = function(eleventyConfig) {
       layouts: "_layouts"
     },
     markdownTemplateEngine: "njk",
-    htmlTemplateEngine: "njk"
+    htmlTemplateEngine: "njk",
+    pathPrefix: prefix ? prefix + "/" : "/"
   };
 };

@@ -56,3 +56,26 @@ Conteúdo...
 
 ---
 Feito para ser minimalista na aparência e robusto na organização.
+
+## Editor de textos e ensaios (`/editor/`)
+Editor 100% no navegador (sem servidor): salva automaticamente no próprio navegador, modelos de
+ensaio/resenha/artigo, notas, localizar e substituir, modo foco, tema claro/escuro, meta de palavras,
+importação (.md/.txt/.html) e exportação (.md, .html, .txt, .doc, PDF via impressão), backup em .json.
+Código em `src/editor/`.
+
+## Publicação (GitHub Pages)
+1. Faça merge desta branch na `main`.
+2. No GitHub: **Settings → Pages → Source: GitHub Actions**.
+3. O workflow `.github/workflows/pages.yml` publica em `https://psitgcarvalho-byte.github.io/PhiloDraftt/`.
+
+### Domínio próprio
+1. Registre o domínio (Registro.br, Namecheap, Cloudflare…).
+2. **Settings → Pages → Custom domain**: informe o domínio e marque *Enforce HTTPS*.
+3. DNS: `CNAME www → psitgcarvalho-byte.github.io`; para o domínio raiz, registros `A` para
+   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+4. **Settings → Secrets and variables → Actions → Variables**: crie `PATH_PREFIX` = `/` e
+   `SITE_URL` = `https://seudominio.com`.
+5. Atualize `Sitemap:` em `src/robots.txt` para `https://seudominio.com/sitemap.xml`.
+
+### Google
+No [Search Console](https://search.google.com/search-console) adicione a propriedade, verifique-a e envie o `sitemap.xml`.

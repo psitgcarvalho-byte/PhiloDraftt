@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor de Ensaios · Caderno do Logos</title>
+<meta name="description" content="Editor de textos e ensaios gratuito, no navegador: salva automaticamente, conta palavras, modo foco e exporta em Markdown, HTML, TXT e PDF.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side" id="side" aria-label="Seus textos">
+    <div class="side-head">
+      <a class="brand" href="../" title="Voltar ao site">Caderno do Logos</a>
+      <button class="btn primary" id="newDoc">+ Novo texto</button>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Buscar nos textos…" aria-label="Buscar">
+    <ul class="doclist" id="docList"></ul>
+    <div class="side-foot">
+      <label class="btn small">Importar<input type="file" id="importFile" accept=".md,.txt,.html,.htm,.json" hidden></label>
+      <button class="btn small" id="backup">Backup (.json)</button>
+    </div>
+    <p class="hint">Seus textos ficam salvos <strong>somente neste navegador</strong>. Faça backup de vez em quando.</p>
+  </aside>
+
+  <section class="main">
+    <header class="bar">
+      <button class="btn small icon" id="toggleSide" aria-label="Mostrar/ocultar lista">☰</button>
+      <div class="tools" role="toolbar" aria-label="Formatação">
+        <select id="blockSel" aria-label="Estilo do parágrafo">
+          <option value="p">Parágrafo</option>
+          <option value="h1">Título</option>
+          <option value="h2">Seção</option>
+          <option value="h3">Subseção</option>
+          <option value="blockquote">Citação</option>
+        </select>
+        <button data-cmd="bold" title="Negrito (Ctrl+B)"><b>N</b></button>
+        <button data-cmd="italic" title="Itálico (Ctrl+I)"><i>I</i></button>
+        <button data-cmd="underline" title="Sublinhado (Ctrl+U)"><u>S</u></button>
+        <button data-cmd="insertUnorderedList" title="Lista">• Lista</button>
+        <button data-cmd="insertOrderedList" title="Lista numerada">1. Lista</button>
+        <button id="linkBtn" title="Link">Link</button>
+        <button id="noteBtn" title="Inserir nota de rodapé">Nota</button>
+        <button data-cmd="undo" title="Desfazer">↶</button>
+        <button data-cmd="redo" title="Refazer">↷</button>
+        <button data-cmd="removeFormat" title="Limpar formatação">Tx</button>
+      </div>
+      <div class="right">
+        <button class="btn small" id="findBtn">Localizar</button>
+        <button class="btn small" id="focusBtn">Foco</button>
+        <button class="btn small" id="themeBtn">Tema</button>
+        <div class="menu">
+          <button class="btn small primary" id="exportBtn">Exportar ▾</button>
+          <div class="menu-list" id="exportMenu" hidden>
+            <button data-exp="md">Markdown (.md)</button>
+            <button data-exp="html">HTML (.html)</button>
+            <button data-exp="txt">Texto (.txt)</button>
+            <button data-exp="doc">Word (.doc)</button>
+            <button data-exp="pdf">PDF / Imprimir</button>
+            <button data-exp="copy">Copiar texto</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="findbar" id="findBar" hidden>
+      <input id="findIn" placeholder="Localizar" aria-label="Localizar">
+      <input id="replIn" placeholder="Substituir por" aria-label="Substituir por">
+      <button class="btn small" id="findNext">Próximo</button>
+      <button class="btn small" id="replOne">Substituir</button>
+      <button class="btn small" id="replAll">Todos</button>
+      <span id="findCount"></span>
+      <button class="btn small icon" id="findClose" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="scroll">
+      <article class="page">
+        <input class="title" id="title" placeholder="Título do ensaio" aria-label="Título">
+        <div class="editor" id="editor" contenteditable="true" spellcheck="true" lang="pt-BR" aria-label="Texto" data-placeholder="Comece a escrever…"></div>
+      </article>
+    </div>
+
+    <footer class="status">
+      <span id="stWords">0 palavras</span>
+      <span id="stChars">0 caracteres</span>
+      <span id="stRead">0 min de leitura</span>
+      <span class="goal"><label for="goal">Meta</label><input id="goal" type="number" min="0" step="100" placeholder="palavras"><span class="bar-goal"><i id="goalFill"></i></span></span>
+      <span id="stSave" class="save">Salvo</span>
+    </footer>
+  </section>
+</div>
+
+<div class="tpl" id="tplDlg" hidden>
+  <div class="tpl-box">
+    <h2>Novo texto</h2>
+    <button data-tpl="blank">Em branco</button>
+    <button data-tpl="ensaio">Ensaio argumentativo <small>introdução · tese · desenvolvimento · objeções · conclusão</small></button>
+    <button data-tpl="resenha">Resenha crítica <small>obra · resumo · análise · avaliação</small></button>
+    <button data-tpl="artigo">Artigo acadêmico <small>resumo · introdução · método · discussão · referências</small></button>
+    <button class="btn small" id="tplCancel">Cancelar</button>
+  </div>
+</div>
+
+<script src="editor.js"></script>
+</body>
+</html>
