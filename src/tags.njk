@@ -17,17 +17,7 @@ permalink: "/tags/index.html"
 
     <div class="hr"></div>
 
-    {% set allTags = collections.posts | map(attribute="data.tags") %}
-    {% set flat = [] %}
-    {% for arr in allTags %}
-      {% for t in arr %}
-        {% if t != "posts" %}
-          {% set flat = (flat.push(t), flat) %}
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-
-    {% set unique = flat | unique %}
+    {% set unique = collections.posts | uniqueTags %}
     <div class="card">
       <div class="card-inner">
         <div class="badges">

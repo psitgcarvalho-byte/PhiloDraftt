@@ -14,6 +14,12 @@ module.exports = function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toISODate();
   });
 
+  eleventyConfig.addFilter("uniqueTags", (posts) => {
+    const set = new Set();
+    (posts || []).forEach(p => (p.data.tags || []).forEach(t => { if (t !== "posts") set.add(t); }));
+    return [...set].sort((a, b) => a.localeCompare(b, "pt-BR"));
+  });
+
   // Collections
   eleventyConfig.addCollection("posts", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/posts/*.md").sort((a,b) => b.date - a.date);
